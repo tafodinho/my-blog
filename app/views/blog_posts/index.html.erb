@@ -1,4 +1,15 @@
 <% @blog_posts.each do |blog_post| %>
-	<h2><%= link_to blog_post.title, blog_post %></h2>
-	<%= blog_post.body %>
+	<div>
+		<h2><%= link_to blog_post.title, blog_post %></h2>
+		<% if user_signed_in? %>
+			<% if blog_post.isDraft? %>
+				<div class="p-2 rounded bg-gray-200 text-gray-900">Draft</div>
+			<% elsif blog_post.isPublished? %>
+				<div class="p-2 rounded bg-green-200 text-gray-900">Published</div>
+			<% elsif blog_post.isScheduled? %>
+				<div class="p-2 rounded bg-red-200 text-gray-900">Scheduled</div>
+			<% end %>
+		<% end %>
+		<%= blog_post.body %>
+	</div>
 <% end %>
